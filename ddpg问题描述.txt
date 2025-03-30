@@ -1,0 +1,7 @@
+安装问题：详见
+https://blog.csdn.net/weixin_51797458/article/details/128299456?ops_request_misc=&request_id=&biz_id=102&utm_term=File%20%22C:%5CUsers%5CASUS%5C.conda%5Cenv&utm_medium=distribute.pc_search_result.none-task-blog-2~all~sobaiduweb~default-1-128299456.nonecase&spm=1018.2226.3001.4187
+
+gym_envs.py 打印gym中的环境，需要连续动作空间的环境
+请查看
+https://www.gymlibrary.dev/environments/box2d/
+
