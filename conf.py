@@ -1,5 +1,5 @@
-episodes=10000
-#timesteps=10000 #总共的时间步
+episodes=10000 #最大迭代次数
+timesteps=10000 #总共的时间步
 is_batch_norm = False #batch normalization switch
 average_batch=1000 #取平均值的步数
 

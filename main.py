@@ -5,7 +5,12 @@ from gym.spaces import Box, Discrete
 import numpy as np
 from ddpg import DDPG
 from ou_noise import OUNoise
-from conf import episodes, is_batch_norm
+from conf import episodes, is_batch_norm, timesteps
+import csv
+from datetime import datetime
+import os
+
+
 
 def main():
     experiment= 'InvertedPendulum-v1' #specify environments here
@@ -13,7 +18,10 @@ def main():
     max_steps= env.spec.timestep_limit #steps per episode
     assert isinstance(env.observation_space, Box), "observation space must be continuous"
     assert isinstance(env.action_space, Box), "action space must be continuous"
-    
+    #save
+    save_path = "D:\\RL_code\\ddpg-aigym-master\\results"
+    current_time = datetime.now().strftime("%Y%m%d-%H%M%S")
+    file_name = f"{current_time}_{experiment}.csv"
     #Randomly initialize critic,actor,target critic, target actor network  and replay buffer   
     agent = DDPG(env, is_batch_norm)
     exploration_noise = OUNoise(env.action_space.shape[0])
@@ -54,11 +62,23 @@ def main():
                 print('EPISODE: ', i, ' Steps: ', t, ' Total Reward: ', reward_per_episode)
                 exploration_noise.reset()  # reinitializing random noise for action exploration
                 reward_st = np.append(reward_st, reward_per_episode)
-                np.savetxt('episode_reward.txt', reward_st, newline="\n")
-                print('\n\n')
                 break
-        total_reward += reward_per_episode
-        print("Average reward per episode {}".format(total_reward / episodes))
+
+            if counter > timesteps:
+                break
+
+        average_episode_reward= np.mean(reward_st)
+
+        file_path = os.path.join(save_path, file_name)
+        print("Average reward per episode {}".format(average_episode_reward))
+        with open(file_path, 'a', newline='\n') as file:
+            writer = csv.writer(file)
+            # 添加数据行
+            writer.writerow([counter, average_episode_reward])
+
+        if counter > timesteps:
+            print(counter)
+            break
 
 if __name__ == '__main__':
     main()    
