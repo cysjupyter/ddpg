@@ -30,9 +30,9 @@ theta = 0.15
 sigma = 0.2
 
 
-'MountainCarContinuous-v0' 成功
+'MountainCarContinuous-v0' -gym成功
 参数：
-timesteps=500000 #总共的时间步
+timesteps=400000 #总共的时间步
 is_batch_norm = False #batch normalization switch
 average_batch=1000 #取平均值的步数
 
@@ -56,3 +56,7 @@ sigma = 0.2
 
 'BipedalWalker-v2' 待定
 'Ant-v1'
+
+绘图颜色
+绿色 '#2a882a' '#cce6cc'
+蓝色 ccccff   7676ff

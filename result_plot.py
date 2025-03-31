@@ -9,11 +9,11 @@ current_time = datetime.now().strftime("%Y%m%d-%H%M%S")
 env_name = "InvertedPendulum"  # 假设的环境名称，您可以根据实际情况修改
 save_path = "D:\\RL_code\\ddpg-aigym-master\\plots"
 
-file_name = '20250330-200658_MountainCarContinuous-v0.csv'
+file_name = '20250331-171513_MountainCarContinuous-v0.csv'
 file_path = os.path.join("D:\\RL_code\\ddpg-aigym-master\\results", file_name)
 
 # 创建文件名
-pic_name = "20250330-200658_MountainCarContinuous-v0.png"
+pic_name = "20250331-171513_MountainCarContinuous-v0.png"
 
 x_data = []
 y_data = []

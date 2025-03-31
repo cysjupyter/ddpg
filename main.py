@@ -12,7 +12,7 @@ import os
 
 
 def main():
-    experiment= 'MountainCarContinuous-v0' #specify environments here
+    experiment= 'Hopper-v1' #specify environments here
     env= gym.make(experiment)
     max_steps= env.spec.timestep_limit #steps per episode
     assert isinstance(env.observation_space, Box), "observation space must be continuous"
@@ -21,6 +21,7 @@ def main():
     save_path = "D:\\RL_code\\ddpg-aigym-master\\results"
     current_time = datetime.now().strftime("%Y%m%d-%H%M%S")
     file_name = f"{current_time}_{experiment}.csv"
+    file_path = os.path.join(save_path, file_name)
     #Randomly initialize critic,actor,target critic, target actor network  and replay buffer   
     agent = DDPG(env, is_batch_norm)
     exploration_noise = OUNoise(env.action_space.shape[0])
@@ -34,6 +35,7 @@ def main():
     print ("Number of Steps per episode:", max_steps)
     #saving reward:
     reward_st = np.array([0])
+    average_episode_reward = 0
 
     i = 0
     while True:
@@ -58,6 +60,13 @@ def main():
                 agent.train()
             reward_per_episode += reward
             counter += 1
+            if (counter % 1000==0):
+                print("Average reward in timestep {} = {}".format(counter,average_episode_reward))
+                with open(file_path, 'a', newline='\n') as file:
+                    writer = csv.writer(file)
+                    # 添加数据行
+                    writer.writerow([counter, average_episode_reward])
+
             # check if episode ends:
             if (done or (t == max_steps - 1)):
                 print('EPISODE: ', i, ' Steps: ', t, ' Total Reward: ', reward_per_episode, 'Timestep: ', counter)
@@ -69,13 +78,6 @@ def main():
                 break
 
         average_episode_reward= np.mean(reward_st)
-
-        file_path = os.path.join(save_path, file_name)
-        print("Average reward per episode {}".format(average_episode_reward))
-        with open(file_path, 'a', newline='\n') as file:
-            writer = csv.writer(file)
-            # 添加数据行
-            writer.writerow([counter, average_episode_reward])
 
         if counter > timesteps:
             print(counter)
