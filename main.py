@@ -5,15 +5,14 @@ from gym.spaces import Box, Discrete
 import numpy as np
 from ddpg import DDPG
 from ou_noise import OUNoise
-from conf import episodes, is_batch_norm, timesteps
+from conf import is_batch_norm, timesteps
 import csv
 from datetime import datetime
 import os
 
 
-
 def main():
-    experiment= 'InvertedPendulum-v1' #specify environments here
+    experiment= 'MountainCarContinuous-v0' #specify environments here
     env= gym.make(experiment)
     max_steps= env.spec.timestep_limit #steps per episode
     assert isinstance(env.observation_space, Box), "observation space must be continuous"
@@ -36,7 +35,9 @@ def main():
     #saving reward:
     reward_st = np.array([0])
 
-    for i in range(episodes):
+    i = 0
+    while True:
+        i += 1
         observation = env.reset()
         reward_per_episode = 0
         for t in range(max_steps):
@@ -59,7 +60,7 @@ def main():
             counter += 1
             # check if episode ends:
             if (done or (t == max_steps - 1)):
-                print('EPISODE: ', i, ' Steps: ', t, ' Total Reward: ', reward_per_episode)
+                print('EPISODE: ', i, ' Steps: ', t, ' Total Reward: ', reward_per_episode, 'Timestep: ', counter)
                 exploration_noise.reset()  # reinitializing random noise for action exploration
                 reward_st = np.append(reward_st, reward_per_episode)
                 break
