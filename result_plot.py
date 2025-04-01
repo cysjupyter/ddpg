@@ -9,11 +9,11 @@ current_time = datetime.now().strftime("%Y%m%d-%H%M%S")
 env_name = "InvertedPendulum"  # 假设的环境名称，您可以根据实际情况修改
 save_path = "D:\\RL_code\\ddpg-aigym-master\\plots"
 
-file_name = '20250331-171513_MountainCarContinuous-v0.csv'
+file_name = '20250401-121630_Humanoid-v1.csv'
 file_path = os.path.join("D:\\RL_code\\ddpg-aigym-master\\results", file_name)
 
 # 创建文件名
-pic_name = "20250331-171513_MountainCarContinuous-v0.png"
+pic_name = "20250401-121630_Humanoid-v1.png"
 
 x_data = []
 y_data = []
@@ -31,7 +31,7 @@ plt.figure(figsize=(10, 5))  # 设置图表大小
 plt.plot(x_data, y_data, label='Data from CSV')  # 绘制线条
 plt.xlabel('Timesteps')  # 设置 x 轴标签
 plt.ylabel('Averager Episode Return')  # 设置 y 轴标签
-plt.title('InvertedPendulum-v1')  # 设置图表标题
+plt.title('Hopper-v1')  # 设置图表标题
 plt.savefig(os.path.join(save_path, pic_name))
 plt.legend()  # 显示图例
 plt.grid(True)  # 显示网格

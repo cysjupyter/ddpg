@@ -12,7 +12,7 @@ import os
 
 
 def main():
-    experiment= 'Hopper-v1' #specify environments here
+    experiment= 'Humanoid-v1' #specify environments here
     env= gym.make(experiment)
     max_steps= env.spec.timestep_limit #steps per episode
     assert isinstance(env.observation_space, Box), "observation space must be continuous"

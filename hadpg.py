@@ -9,9 +9,9 @@ import random
 from tensorflow_grad_inverter import grad_inverter
 from conf import  REPLAY_MEMORY_SIZE, BATCH_SIZE, GAMMA, is_grad_inverter
 
-class DDPG:
+class HADPG:
     
-    """ Deep Deterministic Policy Gradient Algorithm"""
+    """ Hessian Deep Deterministic Policy Gradient Algorithm"""
     def __init__(self,env, is_batch_norm):
         self.env = env 
         self.num_states = env.observation_space.shape[0]
