@@ -9,7 +9,7 @@ from conf import is_batch_norm, timesteps
 import csv
 from datetime import datetime
 import os
-
+import tensorflow as tf
 
 def main():
     experiment= 'Humanoid-v1' #specify environments here
@@ -84,4 +84,12 @@ def main():
             break
 
 if __name__ == '__main__':
-    main()    
+    config = tf.ConfigProto()
+    config.gpu_options.allow_growth = True
+    session = tf.Session(config=config)
+
+    # 调用main函数
+    main()
+
+    # 如果需要，关闭会话
+    session.close()
